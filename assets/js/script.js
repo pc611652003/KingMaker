@@ -10,21 +10,21 @@ var padding = {top:20, right:40, bottom:0, left:0},
             //randomNumbers = getRandomNumbers();
         //http://osric.com/bingo-card-generator/?title=HTML+and+CSS+BINGO!&words=padding%2Cfont-family%2Ccolor%2Cfont-weight%2Cfont-size%2Cbackground-color%2Cnesting%2Cbottom%2Csans-serif%2Cperiod%2Cpound+sign%2C%EF%B9%A4body%EF%B9%A5%2C%EF%B9%A4ul%EF%B9%A5%2C%EF%B9%A4h1%EF%B9%A5%2Cmargin%2C%3C++%3E%2C{+}%2C%EF%B9%A4p%EF%B9%A5%2C%EF%B9%A4!DOCTYPE+html%EF%B9%A5%2C%EF%B9%A4head%EF%B9%A5%2Ccolon%2C%EF%B9%A4style%EF%B9%A5%2C.html%2CHTML%2CCSS%2CJavaScript%2Cborder&freespace=true&freespaceValue=Web+Design+Master&freespaceRandom=false&width=5&height=5&number=35#results
         var data = [
-                    {"label":"Martell",  "value":1,  "color":"orange",  "line":"House Martell! \n Unbowed, Unbent, Unbroken!"},
-                    {"label":"Greyjoy",  "value":2,  "color":"darkblue",  "line":"House Greyjoy! \n We do not sow!"},
-                    {"label":"Stark",  "value":3,  "color":"white",  "line":"House Stark! \n Winter is coming!"},
-                    {"label":"Night's Watch",  "value":4,  "color":"grey",  "line":"Night's Watch! \n Sword in the Darkness!"},
-                    {"label":"Baratheon",  "value":5,  "color":"yellow",  "line":"House Baratheon! \n Ours is the Fury!"},
-                    {"label":"Tyrell",  "value":6,  "color":"green",  "line":"House Tyrell! \n Growing Strong!"},
-                    {"label":"Lannister",  "value":7,  "color":"gold",  "line":"House Lannister! \n Hear Me Roar!"},
-                    {"label":"Targaryen",  "value":8,  "color":"red",  "line":"House Targaryen! \n Fire And Blood!"},
-                    {"label":"Greyjoy",  "value":9,  "color":"darkblue",  "line":"House Greyjoy! \n We do not sow!"},
-                    {"label":"Stark",  "value":10,  "color":"white",  "line":"House Stark! \n Winter is coming!"},
-                    {"label":"Night's Watch",  "value":11,  "color":"grey",  "line":"Night's Watch! \n Sword in the Darkness!"},
-                    {"label":"Baratheon",  "value":12,  "color":"yellow",  "line":"House Baratheon! \n Ours is the Fury!"},
-                    {"label":"Tyrell",  "value":13,  "color":"green",  "line":"House Tyrell! \n Growing Strong!"},
-                    {"label":"Lannister",  "value":14,  "color":"gold",  "line":"House Lannister! \n Hear Me Roar!"},
-                    {"label":"Targaryen",  "value":15,  "color":"red",  "line":"House Targaryen! \n Fire And Blood!"} 
+                    {"label":"Martell",  "value":1,  "color":"gold",  "textcolor":"orange",  "house":"House Martell!",  "motto":"Unbowed, Unbent, Unbroken!"},
+                    {"label":"Greyjoy",  "value":2,  "color":"midnightblue",  "textcolor":"gold",  "house":"House Greyjoy!",  "motto":"We do not sow!"},
+                    {"label":"Stark",  "value":3,  "color":"lightgrey",  "textcolor":"dimgrey",  "house":"House Stark!",  "motto":"Winter is coming!"},
+                    {"label":"Night's Watch",  "value":4,  "color":"dimgrey",  "textcolor":"lightgrey",  "house":"Night's Watch!",  "motto":"Sword in the Darkness!"},
+                    {"label":"Baratheon",  "value":5,  "color":"gold",  "textcolor":"black",  "house":"House Baratheon!",  "motto":"Ours is the Fury!"},
+                    {"label":"Tyrell",  "value":6,  "color":"green",  "textcolor":"gold",  "house":"House Tyrell!",  "motto":"Growing Strong!"},
+                    {"label":"Lannister",  "value":7,  "color":"red",  "textcolor":"gold",  "house":"House Lannister!",  "motto":"Hear Me Roar!"},
+                    {"label":"Targaryen",  "value":8,  "color":"black",  "textcolor":"red",  "house":"House Targaryen!",  "motto":"Fire And Blood!"},
+                    {"label":"Greyjoy",  "value":9,  "color":"midnightblue",  "textcolor":"gold",  "house":"House Greyjoy!",  "motto":"We do not sow!"},
+                    {"label":"Stark",  "value":10,  "color":"lightgrey",  "textcolor":"dimgrey",  "house":"House Stark!",  "motto":"Winter is coming!"},
+                    {"label":"Night's Watch",  "value":11,  "color":"dimgrey",  "textcolor":"lightgrey",  "house":"Night's Watch!",  "motto":"Sword in the Darkness!"},
+                    {"label":"Baratheon",  "value":12,  "color":"gold",  "textcolor":"black",  "house":"House Baratheon!",  "motto":"Ours is the Fury!"},
+                    {"label":"Tyrell",  "value":13,  "color":"green",  "textcolor":"gold",  "house":"House Tyrell!",  "motto":"Growing Strong!"},
+                    {"label":"Lannister",  "value":14,  "color":"red",  "textcolor":"gold",  "house":"House Lannister!",  "motto":"Hear Me Roar!"},
+                    {"label":"Targaryen",  "value":15,  "color":"black",  "textcolor":"red",  "house":"House Targaryen!",  "motto":"Fire And Blood!"} 
         ];
         var svg = d3.select('#chart')
             .append("svg")
@@ -58,10 +58,14 @@ var padding = {top:20, right:40, bottom:0, left:0},
                 return "rotate(" + (d.angle * 180 / Math.PI - 90) + ")translate(" + (d.outerRadius -10) +")";
             })
             .attr("text-anchor", "end")
+            .attr("fill", function(d, i) { return data[i].textcolor; })
             .text( function(d, i) {
                 return data[i].label;
             })
-            .style({"font-weight":"bold", "font-size":"20px"});
+            .style({"font-weight":"bold", "font-size":"20px"})
+            .style( function(d, i) {
+                return {"color":data[i].textcolor};
+            });
         container.on("click", spin);
         function spin(d){
             
@@ -96,15 +100,20 @@ var padding = {top:20, right:40, bottom:0, left:0},
                     // d3.select(".slice:nth-child(" + (picked + 1) + ") path")
                     //     .attr("fill", "#111");
                     //populate question
+                    d3.select("#line")
+                        .style({"background-color":data[picked].color});
                     d3.select("#line h1")
-                        .text(data[picked].line)
-                        .style({"color":data[picked].color});
+                        .text(data[picked].house)
+                        .style({"color":data[picked].textcolor});
+                    d3.select("#line h2")
+                        .text(data[picked].motto)
+                        .style({"color":data[picked].textcolor});
                     oldrotation = rotation;
               
                     /* Get the result value from object "data" */
                     console.log(data[picked].value)
               
-                    /* Comment the below line for restrict spin to sngle time */
+                    /* Comment the below house for restrict spin to sngle time */
                     container.on("click", spin);
                 });
         }
@@ -139,7 +148,7 @@ var padding = {top:20, right:40, bottom:0, left:0},
         
         function getRandomNumbers(){
             var array = new Uint16Array(1000);
-            var scale = d3.scale.linear().range([360, 1440]).domain([0, 100000]);
+            var scale = d3.scale.housear().range([360, 1440]).domain([0, 100000]);
             if(window.hasOwnProperty("crypto") && typeof window.crypto.getRandomValues === "function"){
                 window.crypto.getRandomValues(array);
                 console.log("works");
